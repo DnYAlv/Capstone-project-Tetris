@@ -1,10 +1,5 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import seaborn as sns
-import lorem
-import matplotlib.pyplot as plt
-from PIL import Image
 import plotly.express as px
 import plotly.graph_objects as go
 from numerize import numerize
