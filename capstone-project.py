@@ -95,7 +95,8 @@ with met1:
     st.metric(
         'PM10',
         numerize.numerize(df_now['pm10'].sum()),
-        str(round(percentage*100,2)) + '%'
+        str(round(percentage*100,2)) + '%',
+        'inverse'
     )
 
 with met2:
@@ -107,7 +108,8 @@ with met2:
     st.metric(
         'co',
         numerize.numerize(df_now['co'].sum()),
-        str(round(percentage*100,2)) + '%'
+        str(round(percentage*100,2)) + '%',
+        'inverse'
     )
 
 with met3:
@@ -119,7 +121,8 @@ with met3:
     st.metric(
         'no2',
         numerize.numerize(df_now['no2'].sum()),
-        str(round(percentage*100,2)) + '%'
+        str(round(percentage*100,2)) + '%',
+        'inverse'
     )
 
 with met4:
@@ -131,7 +134,8 @@ with met4:
     st.metric(
         'o3',
         numerize.numerize(df_now['o3'].sum()),
-        str(round(percentage*100,2)) + '%'
+        str(round(percentage*100,2)) + '%',
+        'inverse'
     )
 
 with met5:
@@ -143,7 +147,8 @@ with met5:
     st.metric(
         'so2',
         numerize.numerize(df_now['so2'].sum()),
-        str(round(percentage*100,2)) + '%'
+        str(round(percentage*100,2)) + '%',
+        'inverse'
     )
 
 with met6:
@@ -208,4 +213,4 @@ with st.sidebar:
     
     with st.expander('Data Source'):
         st.write('Dataset yang dipakai untuk analisis dashboard ini diambil dari [Jakarta Open Data (2017 - 2021)](https://data.jakarta.go.id/organization/badan-pengelolaan-lingkungan-hidup-daerah?q=indeks+standar+pencemaran+udara&sort=1)')
-        
+
