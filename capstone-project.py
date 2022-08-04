@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from numerize import numerize
-from scipy.stats.stats import pearsonr
+from scipy.stats import pearsonr
 
 # Set Page
 st.set_page_config(layout='wide')
@@ -150,7 +150,7 @@ with met6:
     st.markdown('#### Tahun ' + str(chosen_year))
 
 # Penjelasan
-st.write('Tetap terdapat kenaikan volume materi partikulat udara yang menandakan bahwa tetap terdapat pencemaran udara selama pandemi COVID-19, namun demikian, pada masa sebelum pandemi berlangsung (2017, 2020), bisa dilihat bahwa konsentrasi pencemaran udara mencapai tahap kategori *SANGAT TIDAK SEHAT*, yang mana hal ini berbeda pada masa pandemi berlangsung (tidak mencapai kategori *SANGAT TIDAK SEHAT*).')
+st.write('Tetap terdapat kenaikan volume materi partikulat udara yang menandakan bahwa tetap terdapat pencemaran udara selama pandemi COVID-19, namun demikian, pada masa sebelum pandemi berlangsung (2017 - 2019), bisa dilihat bahwa konsentrasi pencemaran udara mencapai tahap kategori *SANGAT TIDAK SEHAT*, yang mana hal ini berbeda pada masa pandemi berlangsung (2020 - 2021) (tidak mencapai kategori *SANGAT TIDAK SEHAT*).')
 
 # Correlation Analysis
 st.subheader('Korelasi Antar Partikel Udara')
@@ -168,8 +168,8 @@ with chart_corr:
 
 with correlation:
     corr_part = pearsonr(df[part.lower()], df[part2.lower()])
-    st.markdown(f'##### Korelasi antara {part} dengan {part2}')
-    percent = round(abs(corr_part[0])*100,2)
+    st.markdown(f'##### Korelasi antara {part} dengan {part2} (*Pearson*)')
+    percent = round(corr_part[0]*100,2)
 
     if percent > 50:
         percent_status = 'Korelasi Tinggi'
@@ -182,7 +182,7 @@ with correlation:
     st.markdown(f'##### ***{percent_status}***')
 
 st.subheader('Kesimpulan')
-st.write('Hasil analisis yang saya dapatkan yaitu ***terdapat perubahan kualitas udara*** selama pandemi COVID-19 berlangsung, yang mana polusi udara sedikit berkurang meskipun tidak berlangsung lama, hal ini disebabkan karena meskipun pemakaian kendaraan bermotor bisa saja berkurang selama pandemi, namun penggunaan alat listrik di rumah juga semakin meningkat. Dengan demikian, pencemaran udara tetap terjadi di DKI Jakarta')
+st.write('Hasil analisis yang saya dapatkan yaitu ***terdapat perubahan kualitas udara*** selama **awal pandemi COVID-19** berlangsung, yang mana polusi udara sedikit berkurang meskipun tidak berlangsung lama, hal ini bisa dilihat dimana partikel udara faktor polusi udara yang tetap meningkat. Dengan demikian, pencemaran udara tetap terjadi di DKI Jakarta.')
 
 # Side Bar
 
@@ -208,4 +208,4 @@ with st.sidebar:
     
     with st.expander('Data Source'):
         st.write('Dataset yang dipakai untuk analisis dashboard ini diambil dari [Jakarta Open Data (2017 - 2021)](https://data.jakarta.go.id/organization/badan-pengelolaan-lingkungan-hidup-daerah?q=indeks+standar+pencemaran+udara&sort=1)')
-
+        
