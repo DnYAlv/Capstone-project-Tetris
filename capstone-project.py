@@ -106,7 +106,7 @@ with met2:
         percentage = (df_now['co'].sum() - df_last['co'].sum()) / df_last['co'].sum()
 
     st.metric(
-        'co',
+        'CO',
         numerize.numerize(df_now['co'].sum()),
         str(round(percentage*100,2)) + '%',
         'inverse'
@@ -119,7 +119,7 @@ with met3:
         percentage = (df_now['no2'].sum() - df_last['no2'].sum()) / df_last['no2'].sum()
 
     st.metric(
-        'no2',
+        'NO2',
         numerize.numerize(df_now['no2'].sum()),
         str(round(percentage*100,2)) + '%',
         'inverse'
@@ -132,7 +132,7 @@ with met4:
         percentage = (df_now['o3'].sum() - df_last['o3'].sum()) / df_last['o3'].sum()
 
     st.metric(
-        'o3',
+        'O3',
         numerize.numerize(df_now['o3'].sum()),
         str(round(percentage*100,2)) + '%',
         'inverse'
@@ -145,7 +145,7 @@ with met5:
         percentage = (df_now['so2'].sum() - df_last['so2'].sum()) / df_last['so2'].sum()
 
     st.metric(
-        'so2',
+        'SO2',
         numerize.numerize(df_now['so2'].sum()),
         str(round(percentage*100,2)) + '%',
         'inverse'
@@ -156,6 +156,28 @@ with met6:
 
 # Penjelasan
 st.write('Tetap terdapat kenaikan volume materi partikulat udara yang menandakan bahwa tetap terdapat pencemaran udara selama pandemi COVID-19, namun demikian, pada masa sebelum pandemi berlangsung (2017 - 2019), bisa dilihat bahwa konsentrasi pencemaran udara mencapai tahap kategori *SANGAT TIDAK SEHAT*, yang mana hal ini berbeda pada masa pandemi berlangsung (2020 - 2021) (tidak mencapai kategori *SANGAT TIDAK SEHAT*).')
+
+# Pengunaan Kendaraan Bermotor (2017 - 2021)
+
+st.subheader('Penggunaan Kendaraan Bermotor (2017 - 2021)')
+
+df_vehicle = pd.read_excel('./Datasets/data_kendaraan_2017-2021.xlsx')
+
+metric_vehicle, viz_data = st.columns([1,2])
+
+with metric_vehicle:
+    graph = st.selectbox('Visualisasi Data',options=['Line Chart', 'Bar Chart'])      
+
+with viz_data:
+    if graph == 'Line Chart':
+        fig = px.line(df_vehicle, x='tahun', y=df_vehicle.columns[1:], markers=True)
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        df_bar = df_vehicle.set_index('tahun')
+        fig = px.bar(df_vehicle, x='tahun', y=df_vehicle.columns[1:], barmode='group')
+        st.plotly_chart(fig, use_container_width=True)
+
+st.write('Penggunaan kendaraan bermotor seperti **Mobil Penumpang, Bus, Truk**, dan **Sepeda Motor** tetap mengalami peningkatan meskipun pada masa pandemi COVID-19. Hal ini salah satu faktor penyebab pencemaran udara tetap terjadi di DKI Jakarta, sehingga meskipun memang kualitas udara tidak mencapai kategori *SANGAT TIDAK SEHAT* selama pandemi COVID-19, namun pencemaran udara tetap saja berlangsung.')
 
 # Correlation Analysis
 st.subheader('Korelasi Antar Partikel Udara')
@@ -212,5 +234,4 @@ with st.sidebar:
         st.write('[O3](https://dlhk.jogjaprov.go.id/perlindungan-lapisan-ozon) (Ozon) merupakan lapisan molekul gas yang berfungsi untuk menyerap radiasi sinar ultraviolet yang berada di atmosfer bumi.')
     
     with st.expander('Data Source'):
-        st.write('Dataset yang dipakai untuk analisis dashboard ini diambil dari [Jakarta Open Data (2017 - 2021)](https://data.jakarta.go.id/organization/badan-pengelolaan-lingkungan-hidup-daerah?q=indeks+standar+pencemaran+udara&sort=1)')
-
+        st.write('Dataset yang dipakai untuk analisis dashboard ini diambil dari [Jakarta Open Data (2017 - 2021)](https://data.jakarta.go.id/organization/badan-pengelolaan-lingkungan-hidup-daerah?q=indeks+standar+pencemaran+udara&sort=1) dan [Jakarta BPS](https://jakarta.bps.go.id/indicator/17/786/1/jumlah-kendaraan-bermotor-menurut-jenis-kendaraan-unit-di-provinsi-dki-jakarta.html)')
