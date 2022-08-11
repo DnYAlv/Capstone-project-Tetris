@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from numerize import numerize
-from scipy.stats import pearsonr
+from scipy.stats import pearsonr, kendalltau
 
 # Set Page
 st.set_page_config(layout='wide')
@@ -161,7 +161,7 @@ st.write('Tetap terdapat kenaikan volume materi partikulat udara yang menandakan
 
 st.subheader('Penggunaan Kendaraan Bermotor (2017 - 2021)')
 
-df_vehicle = pd.read_excel('./Datasets/data_kendaraan_2017-2021.xlsx')
+df_vehicle = pd.read_csv('./Datasets/data_kendaraan.csv')
 
 metric_vehicle, viz_data = st.columns([1,2])
 
@@ -207,6 +207,43 @@ with correlation:
 
     st.subheader(f'{percent}%')
     st.markdown(f'##### ***{percent_status}***')
+
+st.subheader('Jenis Partikel Udara yang Mempengaruhi Kategori Kualitas Udara')
+
+ken_chart, ken_exp = st.columns(2)
+
+with ken_chart:
+    data_udara = pd.read_csv('./Datasets/data_kualitas_udara.csv', usecols=['pm10', 'so2', 'co', 'o3', 'no2', 'categori'])
+    data_udara['categori'] = data_udara['categori'].map({
+        'SANGAT TIDAK SEHAT':0,
+        'TIDAK SEHAT':1,
+        'SEDANG':2,
+        'BAIK':3
+    })
+
+    features = ['pm10','so2','co','o3','no2']
+
+    particle = []
+    score = []
+
+    df_score = pd.DataFrame()
+
+    for feat in features:
+        tau, p_value = kendalltau(data_udara[feat], data_udara['categori'])
+        particle.append(feat)
+        score.append(abs(tau))
+
+    df_score['Particle'] = particle
+    df_score['Score'] = score
+
+    fig = go.Figure(data=[go.Pie(labels=particle, values=score, textinfo='label+percent', pull=[0.1,0,0,0,0])])
+    st.plotly_chart(fig, use_container_width=True)
+    st.caption('Korelasi Partikel Udara dengan Kategori Kualitas Udara dengan *Kendall-tau Score*')
+
+with ken_exp:
+    st.write('Partikel - partikel udara seperti *PM10, O3, NO2, CO*, dan *SO2* ini memang merupakan faktor terjadinya pencemaran udara di DKI Jakarta apabila volumenya yang melampaui batas, dan dari data yang ada, kita bisa mengetahui bahwa jenis partikel udara yang paling mempengaruhi terjadinya pencemaran udara di DKI Jakarta yaitu **PM10**')
+    st.write('Pada tahun 2020 (Awal terjadinya pandemi COVID-19), partikel **PM10** mengalami penurunan sebesar 21% yang menyebabkan kualitas udara sedikit membaik selama awal pandemi, namun hal ini berubah pada tahun 2021 yaitu mengalami peningkatan sebesar 10.56%, yang menandakan bahwa pencemaran udara mengalami *peningkatan*.')
+    st.write('Hal ini berbeda pada partikel udara **O3** sebagai faktor kedua yang paling mempengaruhi kualitas udara di DKI Jakarta, di mana volume partikel ini mengalami *penurunan*. Meskipun demikian, dengan faktor partikel udara lain yang mengalami peningkatan signifikan seperti NO2 dan SO2 selama pandemi, maka pencemaran udara di DKI Jakarta tetap terjadi.')
 
 st.subheader('Kesimpulan')
 st.write('Hasil analisis yang saya dapatkan yaitu ***terdapat perubahan kualitas udara*** selama **awal pandemi COVID-19** berlangsung, yang mana polusi udara sedikit berkurang meskipun tidak berlangsung lama, hal ini bisa dilihat dimana partikel udara faktor polusi udara yang tetap meningkat. Dengan demikian, pencemaran udara tetap terjadi di DKI Jakarta.')
