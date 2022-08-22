@@ -38,7 +38,7 @@ with chart_full:
     data_full = df[['tanggal','pm10','so2','co','no2','o3']].set_index('tanggal').resample(chosen_freq).sum()
     st.line_chart(data_full)
 
-st.write('Pada bulan Juli tahun 2020, terdapat ***sedikit penurunan*** volume materi partikel polusi udara di semua partikel yang ada, di mana pada bulan ini pandemi COVID-19 sedang berada pada tahap awal penyebaran sehingga banyak orang yang mengurangi aktivitas luar rumah seperti penggunaan kendaraan bermotor dan lainnya. Hal ini tidak berlangsung lama, di mana di bulan berikutnya, volume partikel polusi udara ini kembali meningkat selama pandemi COVID-19 berlangsung.')
+st.write('Pada bulan Juli tahun 2020, terdapat ***sedikit penurunan*** volume materi partikel polusi udara di semua partikel yang ada, di mana pada bulan ini pandemi COVID-19 sedang berada pada tahap awal penyebaran sehingga banyak orang yang mengurangi aktivitas luar rumah. Hal ini tidak berlangsung lama, di mana di bulan berikutnya, volume partikel polusi udara ini kembali meningkat selama pandemi COVID-19 berlangsung.')
 
 # Chart each Year
 st.subheader('Distribusi Kategori Kualitas Udara tiap Tahun')
