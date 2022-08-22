@@ -177,7 +177,7 @@ with viz_data:
         fig = px.bar(df_vehicle, x='tahun', y=df_vehicle.columns[1:], barmode='group')
         st.plotly_chart(fig, use_container_width=True)
 
-st.write('Penggunaan kendaraan bermotor seperti **Mobil Penumpang, Bus, Truk**, dan **Sepeda Motor** tetap mengalami peningkatan meskipun pada masa pandemi COVID-19. Hal ini salah satu faktor penyebab pencemaran udara tetap terjadi di DKI Jakarta, sehingga meskipun memang kualitas udara tidak mencapai kategori *SANGAT TIDAK SEHAT* selama pandemi COVID-19, namun pencemaran udara tetap saja berlangsung.')
+st.write('Penggunaan kendaraan bermotor seperti **Mobil Penumpang, Bus, Truk**, dan **Sepeda Motor** tetap mengalami peningkatan meskipun pada masa pandemi COVID-19. Hal ini merupakan salah satu faktor penyebab pencemaran udara tetap terjadi di DKI Jakarta, sehingga meskipun memang kualitas udara tidak mencapai kategori *SANGAT TIDAK SEHAT* selama pandemi COVID-19, namun pencemaran udara tetap saja berlangsung.')
 
 # Correlation Analysis
 st.subheader('Korelasi Antar Partikel Udara')
