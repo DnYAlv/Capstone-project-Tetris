@@ -3,4 +3,4 @@
 Here's a dashboard about analysis related to Air Quality in DKI Jakarta, whether its good or bad, and which factor that affects the quality
 
 You can access the following analysis dashboard below
-https://capstoneprojecttetris.herokuapp.com/
+https://dnyalv-capstone-project-tetris-capstone-project-ynh9c5.streamlit.app/
